@@ -12,7 +12,18 @@ function stringToColor(str) {
     return color;
 }
 
-document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font, td[style="width:100%"][class="normalfont"][align="left"]').forEach(element => {
+function colorizeElement(element) {
     let color = stringToColor(element.textContent);
     element.style.color = color;
+}
+
+document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(colorizeElement);
+
+document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
+    colorizeElement(post);
+    let postHTML = post.innerHTML;
+    postHTML = postHTML.replace(/ und /g, ' und <span style="color: pink;">ein Einhorn</span> und ');
+    postHTML = postHTML.replace(/Schülerin/g, 'Gnomin');
+    postHTML = postHTML.replace(/Schüler/g, 'Gnome');
+    post.innerHTML = postHTML;
 });
