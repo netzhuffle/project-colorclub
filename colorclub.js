@@ -25,5 +25,10 @@ document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post =
     postHTML = postHTML.replace(/ und /g, ' und <span style="color: pink;">ein Einhorn</span> und ');
     postHTML = postHTML.replace(/Schülerin/g, 'Gnomin');
     postHTML = postHTML.replace(/Schüler/g, 'Gnome');
+    postHTML = postHTML.replace(/Lehrer/g, 'Li-La-Lehrer');
+    postHTML = postHTML.replace(/Gryffindor/g, 'Löwchen');
+    postHTML = postHTML.replace(/Hufflepuff/g, 'Dächschen');
+    postHTML = postHTML.replace(/Slytherin/g, 'Schlängchen');
+    postHTML = postHTML.replace(/Ravenclaw/g, 'Räbchen');
     post.innerHTML = postHTML;
 });
