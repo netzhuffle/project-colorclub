@@ -12,7 +12,7 @@ function stringToColor(str) {
     return color;
 }
 
-document.querySelectorAll('a[href^="profile.php"]').forEach(link => {
-	let color = stringToColor(link.textContent);
-	link.style.color = color;
+document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(link => {
+    let color = stringToColor(link.textContent);
+    link.style.color = color;
 });
