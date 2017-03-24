@@ -30,5 +30,11 @@ document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post =
     postHTML = postHTML.replace(/Hufflepuff/g, 'Dächschen');
     postHTML = postHTML.replace(/Slytherin/g, 'Schlängchen');
     postHTML = postHTML.replace(/Ravenclaw/g, 'Räbchen');
+    postHTML = postHTML.replace(/Quidditch/g, 'Besendings');
+    postHTML = postHTML.replace(/Schnatz/g, 'Schmatz');
+    postHTML = postHTML.replace(/Potter/g, 'Podder');
+    postHTML = postHTML.replace(/Newt/g, 'Niut');
+    postHTML = postHTML.replace(/alles/gi, 'everything');
+    postHTML = postHTML.replace(/(der|die|das)/gi, 'the');
     post.innerHTML = postHTML;
 });
