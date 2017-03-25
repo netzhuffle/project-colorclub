@@ -11,7 +11,7 @@ function elementToHash(element) {
 /* from http://stackoverflow.com/a/19303725 */
 function rand(hash, i) {
     let x = Math.sin(hash + i) * 10000;
-    return (x - Math.floor(x)) * Number.MAX_SAFE_INTEGER;
+    return Math.floor((x - Math.floor(x)) * Number.MAX_SAFE_INTEGER);
 }
 
 function colorizeElement(element, cachedHash) {
