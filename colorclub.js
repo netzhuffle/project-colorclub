@@ -32,7 +32,7 @@ function colorizeElementDark(element, cachedHash) {
 
 function replaceHTML(element) {
     let html = element.innerHTML;
-    html = html.replace(/ und /g, ' und <span style="color: pink;">ein Einhorn</span> und ');
+    html = html.replace(/ und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
     html = html.replace(/Schülerin/g, 'Gnomin');
     html = html.replace(/Schüler/g, 'Gnome');
     html = html.replace(/Lehrer/g, 'Li-La-Lehrer');
@@ -53,7 +53,7 @@ document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font')
     colorizeElement(element)
 });
 
-document.querySelectorAll('a[href^="board.php"], a[href^="thread.php"], span.smallfont b, .tablecat_fc td[align="left"] span.normalfont b').forEach(element => {
+document.querySelectorAll('a[href^="board.php"], a[href^="thread.php"], td[align="left"] span.smallfont b, .tablecat_fc td[align="left"] span.normalfont b').forEach(element => {
     replaceHTML(element)
 });
 
