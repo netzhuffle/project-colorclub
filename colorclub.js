@@ -9,24 +9,24 @@ function elementToHash(element) {
 }
 
 /* from http://stackoverflow.com/a/19303725 */
-function rand(hash, i) {
+function rand(hash, max, i) {
     let x = Math.sin(hash + i) * 10000;
-    return Math.floor((x - Math.floor(x)) * Number.MAX_SAFE_INTEGER);
+    return Math.floor((x - Math.floor(x)) * max);
 }
 
 function colorizeElement(element, cachedHash) {
     let hash = cachedHash || elementToHash(element);
-    let red = rand(hash, 0) % 255;
-    let green = rand(hash, 1) % 255;
-    let blue = rand(hash, 2) % 255;
+    let red = rand(hash, 255, 0);
+    let green = rand(hash, 255, 1);
+    let blue = rand(hash, 255, 2);
     element.style.color = `rgb(${red}, ${green}, ${blue})`;
 }
 
 function colorizeElementDark(element, cachedHash) {
     let hash = cachedHash || elementToHash(element);
-    let hue = rand(hash, 3) % 360;
+    let hue = rand(hash, 360, 3);
     let saturation = 100;
-    let luminance = rand(hash, 4) % 60;
+    let luminance = rand(hash, 60, 4);
     element.style.color = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
 }
 
@@ -51,7 +51,7 @@ function replaceHTML(element) {
 
 function specializeElement(element, cachedHash) {
     let hash = cachedHash || elementToHash(element);
-    let fontNumber = rand(hash, 5) % 50;
+    let fontNumber = rand(hash, 50, 5);
     if (fontNumber === 0) {
         element.style.fontFamily = "'Bonbon', cursive";
     } else if (fontNumber === 1) {
@@ -63,10 +63,10 @@ function specializeElement(element, cachedHash) {
     } else if (fontNumber === 4) {
         element.style.fontFamily = "Indie Flower', cursive";
     }
-    if (rand(hash, 6) % 20 === 0) {
+    if (rand(hash, 30, 6) === 0) {
         element.style.transform = 'rotate(180deg)';
     }
-    if (rand(hash, 7) % 20 === 0) {
+    if (rand(hash, 30, 7) === 0) {
         element.style.transform = 'scaleX(-1)';
     }
 }
