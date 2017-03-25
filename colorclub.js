@@ -49,7 +49,13 @@ function replaceHTML(element) {
     element.innerHTML = html;
 }
 
-document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => colorizeElement(element));
+document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
+    colorizeElement(element)
+});
+
+document.querySelectorAll('a[href^="board.php"], a[href^="thread.php"], span.smallfont b, .tablecat_fc td[align="left"] span.normalfont b').forEach(element => {
+    replaceHTML(element)
+});
 
 document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
     let hash = elementToHash(post);
