@@ -51,7 +51,7 @@ function replaceHTML(element) {
 
 function specializeElement(element, cachedHash) {
     let hash = cachedHash || elementToHash(element);
-    let fontNumber = rand(hash, 50, 5);
+    let fontNumber = rand(hash, 75, 5);
     if (fontNumber === 0) {
         element.style.fontFamily = "'Bonbon', cursive";
     } else if (fontNumber === 1) {
@@ -61,7 +61,17 @@ function specializeElement(element, cachedHash) {
     } else if (fontNumber === 3) {
         element.style.fontFamily = "'Nova Oval', cursive";
     } else if (fontNumber === 4) {
-        element.style.fontFamily = "Indie Flower', cursive";
+        element.style.fontFamily = "'Indie Flower', cursive";
+    } else if (fontNumber === 5) {
+        element.style.fontFamily = "'VT323', monospace";
+    } else if (fontNumber === 6) {
+        element.style.fontFamily = "'Covered By Your Grace', cursive";
+    } else if (fontNumber === 7) {
+        element.style.fontFamily = "'Audiowide', cursive";
+    } else if (fontNumber === 8) {
+        element.style.fontFamily = "'Vidaloka', serif";
+    } else if (fontNumber === 9) {
+        element.style.fontFamily = "'Rock Salt', cursive";
     }
     if (rand(hash, 30, 6) === 0) {
         element.style.transform = 'rotate(180deg)';
