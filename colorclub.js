@@ -1,26 +1,40 @@
-/* from http://jsfiddle.net/sUK45/ */
-function stringToColor(str) {
+/* from http://stackoverflow.com/a/21682946 */
+function elementToHash(element) {
+    let text = element.textContent;
     let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    for (let i = 0; i < text.length; i++) {
+        hash = text.charCodeAt(i) + ((hash << 5) - hash);
     }
-    let color = '#';
-    for (let i = 0; i < 3; i++) {
-        let value = (hash >> (i * 8)) & 0xFF;
-        color += ('00' + value.toString(16)).substr(-2);
-    }
-    return color;
+    return hash & hash; // convert to 32bit int
 }
 
-function colorizeElement(element) {
-    let color = stringToColor(element.textContent);
-    element.style.color = color;
+/* from http://stackoverflow.com/a/19303725 */
+function rand(hash, i) {
+    let x = Math.sin(hash + i) * 10000;
+    return (x - Math.floor(x)) * Number.MAX_SAFE_INTEGER;
 }
 
-document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(colorizeElement);
+function colorizeElement(element, cachedHash) {
+    let hash = cachedHash || elementToHash(element);
+    let red = rand(hash, 0) % 255;
+    let green = rand(hash, 1) % 255;
+    let blue = rand(hash, 2) % 255;
+    element.style.color = `rgb(${red}, ${green}, ${blue})`;
+}
+
+function colorizeElementDark(element, cachedHash) {
+    let hash = cachedHash || elementToHash(element);
+    let hue = rand(hash, 3) % 360;
+    let saturation = 100;
+    let luminance = rand(hash, 4) % 60;
+    element.style.color = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
+}
+
+document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => colorizeElement(element));
 
 document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
-    colorizeElement(post);
+    let hash = elementToHash(post);
+    colorizeElementDark(post, hash);
     let postHTML = post.innerHTML;
     postHTML = postHTML.replace(/ und /g, ' und <span style="color: pink;">ein Einhorn</span> und ');
     postHTML = postHTML.replace(/Schülerin/g, 'Gnomin');
