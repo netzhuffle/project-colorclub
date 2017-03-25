@@ -85,3 +85,7 @@ document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post =
     specializeElement(post, hash);
     replaceHTML(post);
 });
+
+document.querySelectorAll('.smallfont, .tablea').forEach(element => {
+    specializeElement(element)
+});
