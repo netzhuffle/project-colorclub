@@ -30,25 +30,29 @@ function colorizeElementDark(element, cachedHash) {
     element.style.color = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
 }
 
+function replaceHTML(element) {
+    let html = element.innerHTML;
+    html = html.replace(/ und /g, ' und <span style="color: pink;">ein Einhorn</span> und ');
+    html = html.replace(/Schülerin/g, 'Gnomin');
+    html = html.replace(/Schüler/g, 'Gnome');
+    html = html.replace(/Lehrer/g, 'Li-La-Lehrer');
+    html = html.replace(/Gryffindor/g, 'Löwchen');
+    html = html.replace(/Hufflepuff/g, 'Dächschen');
+    html = html.replace(/Slytherin/g, 'Schlängchen');
+    html = html.replace(/Ravenclaw/g, 'Räbchen');
+    html = html.replace(/Quidditch/g, 'Besendings');
+    html = html.replace(/Schnatz/g, 'Schmatz');
+    html = html.replace(/alles/gi, 'everything');
+    html = html.replace(/(der|die|das)/gi, 'the');
+    html = html.replace(/Potter/g, 'Podder');
+    html = html.replace(/Newt/g, 'Niut');
+    element.innerHTML = html;
+}
+
 document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => colorizeElement(element));
 
 document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
     let hash = elementToHash(post);
     colorizeElementDark(post, hash);
-    let postHTML = post.innerHTML;
-    postHTML = postHTML.replace(/ und /g, ' und <span style="color: pink;">ein Einhorn</span> und ');
-    postHTML = postHTML.replace(/Schülerin/g, 'Gnomin');
-    postHTML = postHTML.replace(/Schüler/g, 'Gnome');
-    postHTML = postHTML.replace(/Lehrer/g, 'Li-La-Lehrer');
-    postHTML = postHTML.replace(/Gryffindor/g, 'Löwchen');
-    postHTML = postHTML.replace(/Hufflepuff/g, 'Dächschen');
-    postHTML = postHTML.replace(/Slytherin/g, 'Schlängchen');
-    postHTML = postHTML.replace(/Ravenclaw/g, 'Räbchen');
-    postHTML = postHTML.replace(/Quidditch/g, 'Besendings');
-    postHTML = postHTML.replace(/Schnatz/g, 'Schmatz');
-    postHTML = postHTML.replace(/Potter/g, 'Podder');
-    postHTML = postHTML.replace(/Newt/g, 'Niut');
-    postHTML = postHTML.replace(/alles/gi, 'everything');
-    postHTML = postHTML.replace(/(der|die|das)/gi, 'the');
-    post.innerHTML = postHTML;
+    replaceHTML(post);
 });
