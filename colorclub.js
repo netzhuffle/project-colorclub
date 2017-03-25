@@ -49,16 +49,39 @@ function replaceHTML(element) {
     element.innerHTML = html;
 }
 
+function specializeElement(element, cachedHash) {
+    let hash = cachedHash || elementToHash(element);
+    let fontNumber = rand(hash, 5) % 50;
+    if (fontNumber === 0) {
+        element.style.fontFamily = "'Bonbon', cursive";
+    } else if (fontNumber === 1) {
+        element.style.fontFamily = "'Jim Nightshade', cursive";
+    } else if (fontNumber === 2) {
+        element.style.fontFamily = "'Space Mono', monospace";
+    } else if (fontNumber === 3) {
+        element.style.fontFamily = "'Nova Oval', cursive";
+    } else if (fontNumber === 4) {
+        element.style.fontFamily = "Indie Flower', cursive";
+    }
+    if (rand(hash, 6) % 20 === 0) {
+        element.style.transform = 'rotate(180deg)';
+    }
+    if (rand(hash, 7) % 20 === 0) {
+        element.style.transform = 'scaleX(-1)';
+    }
+}
+
 document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
     colorizeElement(element)
 });
 
-document.querySelectorAll('a[href^="board.php"], a[href^="thread.php"], td[align="left"] span.smallfont b, .tablecat_fc td[align="left"] span.normalfont b').forEach(element => {
+document.querySelectorAll('a[href^="board.php"], a[href^="thread.php"], td[align="left"] > span.smallfont b, .tablecat_fc td[align="left"] span.normalfont b').forEach(element => {
     replaceHTML(element)
 });
 
 document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
     let hash = elementToHash(post);
     colorizeElementDark(post, hash);
+    specializeElement(post, hash);
     replaceHTML(post);
 });
