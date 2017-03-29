@@ -55,8 +55,8 @@ function replaceHTML(element, hours) {
             html = html.replace(/Alles/g, 'Everything');
             html = html.replace(/(?![^<]*>)ph/g, 'pf');
             html = html.replace(/Ph/g, 'Pf');
-            html = html.replace(/sunny/g, 'stirbsonnig1');
-            html = html.replace(/Nina/g, 'diecheesy2');
+            html = html.replace(/sunny/gi, 'stirbsonnig1');
+            html = html.replace(/Nina/gi, 'diecheesy2');
         }
         if (hours >= 20) {
             html = html.replace(/(?![^<]*>)t/g, 'd');
