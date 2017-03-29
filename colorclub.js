@@ -45,20 +45,22 @@ function replaceHTML(element, hours) {
         html = html.replace(/Hufflepuff/g, 'Dächschen');
         html = html.replace(/Slytherin/g, 'Schlängchen');
         html = html.replace(/Ravenclaw/g, 'Räbchen');
-        html = html.replace(/Quidditch/g, 'Besendings');
         if (hours >= 18) {
+            html = html.replace(/Quidditch/g, 'Besendings');
             html = html.replace(/Mitarbeiter/g, 'Superhelden');
             html = html.replace(/Schnatz/g, 'Schmatz');
             html = html.replace(/Potter/g, 'Podder');
             html = html.replace(/Newt/g, 'Niut');
             html = html.replace(/alles/g, 'everything');
             html = html.replace(/Alles/g, 'Everything');
+            html = html.replace(/(?![^<]*>)ph/g, 'pf');
+            html = html.replace(/Ph/g, 'Pf');
+            html = html.replace(/sunny/g, 'stirbsonnig1');
+            html = html.replace(/Nina/g, 'diecheesy2');
         }
         if (hours >= 20) {
             html = html.replace(/(?![^<]*>)t/g, 'd');
             html = html.replace(/T/g, 'D');
-            html = html.replace(/(?![^<]*>)ph/g, 'pf');
-            html = html.replace(/Ph/g, 'Pf');
             html = html.replace(/ß/g, ':ß:');
             html = html.replace(/(?![^<]*>)ss/g, 'ß');
             html = html.replace(/:ß:/g, 'ss');
