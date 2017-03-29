@@ -104,7 +104,6 @@ function specializeElement(element, hours) {
     }
 }
 function animateImage(element) {
-    if(hours >= 22){
         const avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
         const quer = avatar < 10 ? avatar : avatar % 9;
         let animate = true;
@@ -152,8 +151,7 @@ function animateImage(element) {
                 pos++;
                 element.style.transform = 'rotate3d(' + x + ',' + y + ',' + z + ',' + pos + 'deg)';
             }
-        }, rand(quer,100,0)): '';
-    }
+        }, rand(quer, 100, 0)) : '';
 }
 if(window.location.pathname != '/hpfc/board/editpost.php'){
 	document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
@@ -173,8 +171,10 @@ if(window.location.pathname != '/hpfc/board/editpost.php'){
 	        replaceHTML(element, hours);
 	    });
 	    
-	    document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(avatar => {
-	        animateImage(avatar, hours);
-	    });
+        if (hours >= 22) {
+            document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(avatar => {
+                animateImage(avatar, hours);
+            });
+        }
 	}
 }
