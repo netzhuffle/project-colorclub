@@ -23,7 +23,7 @@ function colorizeElement(element) {
 }
 
 function colorizeElementDark(element, hours) {
-    if (hours >= 12) {
+    if (hours >= 14) {
         const hash = elementToHash(element);
         const hue = rand(hash, 360, 3);
         const saturation = 100;
@@ -33,7 +33,7 @@ function colorizeElementDark(element, hours) {
 }
 
 function replaceHTML(element, hours) {
-    if (hours >= 14) {
+    if (hours >= 16) {
         let html = element.innerHTML;
         html = html.replace(/(?![^<]*>) und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
         html = html.replace(/Schülerin/g, 'Gnomin');
@@ -46,7 +46,7 @@ function replaceHTML(element, hours) {
         html = html.replace(/Slytherin/g, 'Schlängchen');
         html = html.replace(/Ravenclaw/g, 'Räbchen');
         html = html.replace(/Quidditch/g, 'Besendings');
-        if (hours >= 16) {
+        if (hours >= 18) {
             html = html.replace(/Mitarbeiter/g, 'Superhelden');
             html = html.replace(/Schnatz/g, 'Schmatz');
             html = html.replace(/Potter/g, 'Podder');
@@ -54,7 +54,7 @@ function replaceHTML(element, hours) {
             html = html.replace(/alles/g, 'everything');
             html = html.replace(/Alles/g, 'Everything');
         }
-        if (hours >= 18) {
+        if (hours >= 20) {
             html = html.replace(/(?![^<]*>)t/g, 'd');
             html = html.replace(/T/g, 'D');
             html = html.replace(/(?![^<]*>)ph/g, 'pf');
@@ -102,7 +102,7 @@ function specializeElement(element, hours) {
     }
 }
 function animateImage(element) {
-    if(hours >= 20){
+    if(hours >= 22){
         const avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
         const quer = avatar < 10 ? avatar : avatar % 9;
         let animate = true;
@@ -161,7 +161,7 @@ document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font')
 let date = new Date();
 let hours = date.getHours();
 
-if (hours >= 10) {
+if (hours >= 12) {
     document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
         colorizeElementDark(post, hours);
     });
