@@ -23,7 +23,7 @@ function colorizeElement(element) {
 }
 
 function colorizeElementDark(element, hours) {
-    if (hours >= 14) {
+    if (hours >= 12) {
         const hash = elementToHash(element);
         const hue = rand(hash, 360, 3);
         const saturation = 100;
@@ -33,7 +33,7 @@ function colorizeElementDark(element, hours) {
 }
 
 function replaceHTML(element, hours) {
-    if (hours >= 16) {
+    if (hours >= 14) {
         let html = element.innerHTML;
         html = html.replace(/(?![^<]*>) und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
         html = html.replace(/Schülerin/g, 'Gnomin');
@@ -46,7 +46,7 @@ function replaceHTML(element, hours) {
         html = html.replace(/Slytherin/g, 'Schlängchen');
         html = html.replace(/Ravenclaw/g, 'Räbchen');
         html = html.replace(/Quidditch/g, 'Besendings');
-        if (hours >= 18) {
+        if (hours >= 16) {
             html = html.replace(/Mitarbeiter/g, 'Superhelden');
             html = html.replace(/Schnatz/g, 'Schmatz');
             html = html.replace(/Potter/g, 'Podder');
@@ -54,7 +54,7 @@ function replaceHTML(element, hours) {
             html = html.replace(/alles/g, 'everything');
             html = html.replace(/Alles/g, 'Everything');
         }
-        if (hours >= 20) {
+        if (hours >= 18) {
             html = html.replace(/(?![^<]*>)t/g, 'd');
             html = html.replace(/T/g, 'D');
             html = html.replace(/(?![^<]*>)ph/g, 'pf');
@@ -101,6 +101,58 @@ function specializeElement(element, hours) {
         element.style.transform = 'scaleX(-1)';
     }
 }
+function animateImage(element) {
+    if(hours >= 20){
+        const avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
+        const quer = avatar < 10 ? avatar : avatar % 9;
+        let animate = true;
+        let pos = 0;
+        let x = 0;
+        let y = 0;
+        let z = 0;
+
+        switch(quer){
+            case 0:
+            case 3:
+                x = 1;
+            case 1:
+            case 6:
+                y = 1;
+                break;
+            case 4:
+            case 9:
+                z = 1;
+                break;
+            case 7:
+                x = 1; 
+                y = 1;
+                break;
+            case 2:
+                x = 1;
+                z = 1;
+                break;
+            case 5:
+                y = 1;
+                z = 1;
+                break;
+            case 8:
+                x = 1;
+                y = 1;
+                z = 1;
+                break;
+            default:
+                animate = false;
+        }
+        let id = animate ? setInterval(function () {
+            if (pos == 359) {
+                pos = 0;
+            } else {
+                pos++;
+                element.style.transform = 'rotate3d(' + x + ',' + y + ',' + z + ',' + pos + 'deg)';
+            }
+        }, rand(quer,100,0)): '';
+    }
+}
 
 document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
     colorizeElement(element)
@@ -109,7 +161,7 @@ document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font')
 let date = new Date();
 let hours = date.getHours();
 
-if (hours >= 12) {
+if (hours >= 10) {
     document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
         colorizeElementDark(post, hours);
     });
@@ -117,5 +169,9 @@ if (hours >= 12) {
     document.querySelectorAll('.tablecat_fc td[align="left"] span.normalfont b, .smallfont, .tablea, .tableb').forEach(element => {
         specializeElement(element, hours);
         replaceHTML(element, hours);
+    });
+    
+    document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(avatar => {
+        animateImage(avatar, hours);
     });
 }
