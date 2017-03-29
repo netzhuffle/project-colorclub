@@ -1,6 +1,6 @@
 /* from http://stackoverflow.com/a/21682946 */
 function elementToHash(element) {
-    let text = element.textContent;
+    const text = element.textContent;
     let hash = 0;
     for (let i = 0; i < text.length; i++) {
         hash = text.charCodeAt(i) + ((hash << 5) - hash);
@@ -10,95 +10,112 @@ function elementToHash(element) {
 
 /* from http://stackoverflow.com/a/19303725 */
 function rand(hash, max, i) {
-    let x = Math.sin(hash + i) * 10000;
+    const x = Math.sin(hash + i) * 10000;
     return Math.floor((x - Math.floor(x)) * max);
 }
 
-function colorizeElement(element, cachedHash) {
-    let hash = cachedHash || elementToHash(element);
-    let red = rand(hash, 255, 0);
-    let green = rand(hash, 255, 1);
-    let blue = rand(hash, 255, 2);
+function colorizeElement(element) {
+    const hash = elementToHash(element);
+    const red = rand(hash, 255, 0);
+    const green = rand(hash, 255, 1);
+    const blue = rand(hash, 255, 2);
     element.style.color = `rgb(${red}, ${green}, ${blue})`;
 }
 
-function colorizeElementDark(element, cachedHash) {
-    let hash = cachedHash || elementToHash(element);
-    let hue = rand(hash, 360, 3);
-    let saturation = 100;
-    let luminance = rand(hash, 60, 4);
-    element.style.color = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
+function colorizeElementDark(element, hours) {
+    if (hours >= 14) {
+        const hash = elementToHash(element);
+        const hue = rand(hash, 360, 3);
+        const saturation = 100;
+        const luminance = rand(hash, 60, 4);
+        element.style.color = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
+    }
 }
 
-function replaceHTML(element) {
-    let html = element.innerHTML;
-    html = html.replace(/ und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
-    html = html.replace(/Schülerin/g, 'Gnomin');
-    html = html.replace(/Schüler/g, 'Gnome');
-    html = html.replace(/Lehrer/g, 'Li-La-Lehrer');
-    html = html.replace(/Gryffindor/g, 'Löwchen');
-    html = html.replace(/Hufflepuff/g, 'Dächschen');
-    html = html.replace(/Slytherin/g, 'Schlängchen');
-    html = html.replace(/Ravenclaw/g, 'Räbchen');
-    html = html.replace(/Quidditch/g, 'Besendings');
-    html = html.replace(/Schnatz/g, 'Schmatz');
-    html = html.replace(/alles/gi, 'everything');
-    html = html.replace(/(der|die|das)/gi, 'the');
-    html = html.replace(/Potter/g, 'Podder');
-    html = html.replace(/Newt/g, 'Niut');
-    element.innerHTML = html;
+function replaceHTML(element, hours) {
+    if (hours >= 16) {
+        let html = element.innerHTML;
+        html = html.replace(/(?![^<]*>) und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
+        html = html.replace(/Schülerin/g, 'Gnomin');
+        html = html.replace(/Schüler/g, 'Gnome');
+        html = html.replace(/schülerin/g, 'gnomin');
+        html = html.replace(/schüler/g, 'gnome');
+        html = html.replace(/Lehrer/g, 'Li-La-Lehrer');
+        html = html.replace(/Gryffindor/g, 'Löwchen');
+        html = html.replace(/Hufflepuff/g, 'Dächschen');
+        html = html.replace(/Slytherin/g, 'Schlängchen');
+        html = html.replace(/Ravenclaw/g, 'Räbchen');
+        html = html.replace(/Quidditch/g, 'Besendings');
+        if (hours >= 18) {
+            html = html.replace(/Mitarbeiter/g, 'Superhelden');
+            html = html.replace(/Schnatz/g, 'Schmatz');
+            html = html.replace(/Potter/g, 'Podder');
+            html = html.replace(/Newt/g, 'Niut');
+            html = html.replace(/alles/g, 'everything');
+            html = html.replace(/Alles/g, 'Everything');
+        }
+        if (hours >= 20) {
+            html = html.replace(/(?![^<]*>)t/g, 'd');
+            html = html.replace(/T/g, 'D');
+            html = html.replace(/(?![^<]*>)ph/g, 'pf');
+            html = html.replace(/Ph/g, 'Pf');
+            html = html.replace(/ß/g, ':ß:');
+            html = html.replace(/(?![^<]*>)ss/g, 'ß');
+            html = html.replace(/:ß:/g, 'ss');
+            html = html.replace(/(?![^<]*>)(der|die|das)/g, 'the');
+            html = html.replace(/(Der|Die|Das)/g, 'The');
+        }
+        element.innerHTML = html;
+    }
 }
 
-function specializeElement(element, cachedHash) {
-    let hash = cachedHash || elementToHash(element);
-    let fontNumber = rand(hash, 75, 5);
-    if (fontNumber === 0) {
+function specializeElement(element, hours) {
+    const hash = elementToHash(element);
+    const factor = (hours - 12) / 2;
+    const fontNumber = rand(hash, 400, 5);
+    if (fontNumber < factor) {
         element.style.fontFamily = "'Bonbon', cursive";
-    } else if (fontNumber === 1) {
+    } else if (fontNumber < 6 + factor) {
         element.style.fontFamily = "'Jim Nightshade', cursive";
-    } else if (fontNumber === 2) {
+    } else if (fontNumber < 12 + factor) {
         element.style.fontFamily = "'Space Mono', monospace";
-    } else if (fontNumber === 3) {
+    } else if (fontNumber < 18 + factor) {
         element.style.fontFamily = "'Nova Oval', cursive";
-    } else if (fontNumber === 4) {
+    } else if (fontNumber < 24 + factor) {
         element.style.fontFamily = "'Indie Flower', cursive";
-    } else if (fontNumber === 5) {
+    } else if (fontNumber < 30 + factor) {
         element.style.fontFamily = "'VT323', monospace";
-    } else if (fontNumber === 6) {
+    } else if (fontNumber < 36 + factor) {
         element.style.fontFamily = "'Covered By Your Grace', cursive";
-    } else if (fontNumber === 7) {
+    } else if (fontNumber < 42 + factor) {
         element.style.fontFamily = "'Audiowide', cursive";
-    } else if (fontNumber === 8) {
+    } else if (fontNumber < 48 + factor) {
         element.style.fontFamily = "'Vidaloka', serif";
-    } else if (fontNumber === 9) {
+    } else if (fontNumber < 56 + factor) {
         element.style.fontFamily = "'Rock Salt', cursive";
     }
-    if (rand(hash, 30, 6) === 0) {
+    if (rand(hash, 100, 6) < factor) {
         element.style.transform = 'rotate(180deg)';
     }
-    if (rand(hash, 30, 7) === 0) {
+    if (rand(hash, 100, 7) < factor) {
         element.style.transform = 'scaleX(-1)';
     }
 }
 
 document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
     colorizeElement(element)
-}); 
-
-document.querySelectorAll('a[href^="board.php"], a[href^="thread.php"], td[align="left"] > span.smallfont b, .tablecat_fc td[align="left"] span.normalfont b').forEach(element => {
-    replaceHTML(element)
 });
 
-document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
-    let hash = elementToHash(post);
-    colorizeElementDark(post, hash);
-    specializeElement(post, hash);
-    replaceHTML(post);
-});
-document.querySelectorAll('.tablea td.smallfont,.tableb td.smallfont ').forEach(element => {
-    replaceHTML(element)
-});
+let date = new Date();
+let hours = date.getHours();
 
-document.querySelectorAll('.smallfont, .tablea').forEach(element => {
-    specializeElement(element)
-});
+if (hours >= 12) {
+    document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
+        colorizeElementDark(post, hours);
+    });
+    
+    document.querySelectorAll('.tablecat_fc td[align="left"] span.normalfont b, .smallfont, .tablea, .tableb').forEach(element => {
+        specializeElement(element, hours);
+        replaceHTML(element, hours);
+    });
+}
