@@ -153,28 +153,35 @@ function animateImage(element) {
             }
         }, rand(quer, 100, 0)) : '';
 }
-if(window.location.pathname != '/hpfc/board/editpost.php'){
-	document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
-	    colorizeElement(element)
-	});
-	
-	let date = new Date();
-	let hours = date.getHours();
-	
-	if (hours >= 12) {
-	    document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
-	        colorizeElementDark(post, hours);
-	    });
-	    
-	    document.querySelectorAll('.tablecat_fc td[align="left"] span.normalfont b, .smallfont, .tablea, .tableb').forEach(element => {
-	        specializeElement(element, hours);
-	        replaceHTML(element, hours);
-	    });
-	    
-        if (hours >= 22) {
-            document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(avatar => {
-                animateImage(avatar, hours);
-            });
-        }
-	}
+function locationtrigger(){
+  let input = document.querySelector('input:not([type=hidden]):not([type=image]),textarea');
+  if(input === null){
+	return true;
+  }else{
+	return false;
+  }
+}
+
+document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
+    colorizeElement(element)
+});
+
+let date = new Date();
+let hours = date.getHours();
+
+if (hours >= 12 && locationtrigger()) {
+    document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
+        colorizeElementDark(post, hours);
+    });
+    
+    document.querySelectorAll('.tablecat_fc td[align="left"] span.normalfont b, .smallfont, .tablea, .tableb').forEach(element => {
+       specializeElement(element, hours);
+       replaceHTML(element, hours);
+    });
+
+    if (hours >= 22) {
+        document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(avatar => {
+            animateImage(avatar, hours);
+        });
+    }
 }
