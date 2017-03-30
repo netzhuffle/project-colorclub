@@ -154,7 +154,7 @@ function animateImage(element) {
         }, rand(quer, 100, 0)) : '';
 }
 function locationtrigger(){
-  let input = document.querySelector('input:not([type=hidden]):not([type=image]),textarea');
+  let input = document.querySelector('textarea');
   if(input === null){
 	return true;
   }else{
