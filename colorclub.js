@@ -19,7 +19,7 @@ function colorizeElement(element) {
     const red = rand(hash, 255, 0);
     const green = rand(hash, 255, 1);
     const blue = rand(hash, 255, 2);
-    element.style.color = `rgb(${red}, ${green}, ${blue})`;
+    element.style.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
 }
 
 function colorizeElementDark(element, hours) {
@@ -28,7 +28,7 @@ function colorizeElementDark(element, hours) {
         const hue = rand(hash, 360, 3);
         const saturation = 100;
         const luminance = rand(hash, 60, 4);
-        element.style.color = `hsl(${hue}, ${saturation}%, ${luminance}%)`;
+        element.style.color = 'hsl(' + hue + ', ' + saturation + '%, ' + luminance + '%)';
     }
 }
 
@@ -103,6 +103,7 @@ function specializeElement(element, hours) {
         element.style.transform = 'scaleX(-1)';
     }
 }
+
 function animateImage(element) {
         const avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
         const quer = avatar < 10 ? avatar : avatar % 9;
@@ -153,16 +154,17 @@ function animateImage(element) {
             }
         }, rand(quer, 100, 0)) : '';
 }
-function locationtrigger(){
+
+function locationtrigger() {
   let input = document.querySelector('textarea');
-  if(input === null){
-	return true;
-  }else{
-	return false;
-  }
+  return input === null;
 }
 
-document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(element => {
+if (!NodeList.prototype.forEach) {
+    NodeList.prototype.forEach = Array.prototype.forEach;
+}
+
+document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font').forEach(function (element) {
     colorizeElement(element)
 });
 
@@ -170,17 +172,17 @@ let date = new Date();
 let hours = date.getHours();
 
 if (hours >= 12 && locationtrigger()) {
-    document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(post => {
+    document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(function (post) {
         colorizeElementDark(post, hours);
     });
     
-    document.querySelectorAll('.tablecat_fc td[align="left"] span.normalfont b, .smallfont, .tablea, .tableb').forEach(element => {
+    document.querySelectorAll('.tablecat_fc td[align="left"] span.normalfont b, .smallfont, .tablea, .tableb').forEach(function (element) {
        specializeElement(element, hours);
        replaceHTML(element, hours);
     });
 
     if (hours >= 22) {
-        document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(avatar => {
+        document.querySelectorAll('img[src^="images/avatars/avatar-"]').forEach(function (avatar) {
             animateImage(avatar, hours);
         });
     }
