@@ -1,8 +1,8 @@
 /* from http://stackoverflow.com/a/21682946 */
 function elementToHash(element) {
-    const text = element.textContent;
-    let hash = 0;
-    for (let i = 0; i < text.length; i++) {
+    var text = element.textContent;
+    var hash = 0;
+    for (var i = 0; i < text.length; i++) {
         hash = text.charCodeAt(i) + ((hash << 5) - hash);
     }
     return hash & hash; // convert to 32bit int
@@ -10,31 +10,31 @@ function elementToHash(element) {
 
 /* from http://stackoverflow.com/a/19303725 */
 function rand(hash, max, i) {
-    const x = Math.sin(hash + i) * 10000;
+    var x = Math.sin(hash + i) * 10000;
     return Math.floor((x - Math.floor(x)) * max);
 }
 
 function colorizeElement(element) {
-    const hash = elementToHash(element);
-    const red = rand(hash, 255, 0);
-    const green = rand(hash, 255, 1);
-    const blue = rand(hash, 255, 2);
+    var hash = elementToHash(element);
+    var red = rand(hash, 255, 0);
+    var green = rand(hash, 255, 1);
+    var blue = rand(hash, 255, 2);
     element.style.color = 'rgb(' + red + ', ' + green + ', ' + blue + ')';
 }
 
 function colorizeElementDark(element, hours) {
     if (hours >= 14) {
-        const hash = elementToHash(element);
-        const hue = rand(hash, 360, 3);
-        const saturation = 100;
-        const luminance = rand(hash, 60, 4);
+        var hash = elementToHash(element);
+        var hue = rand(hash, 360, 3);
+        var saturation = 100;
+        var luminance = rand(hash, 60, 4);
         element.style.color = 'hsl(' + hue + ', ' + saturation + '%, ' + luminance + '%)';
     }
 }
 
 function replaceHTML(element, hours) {
     if (hours >= 16) {
-        let html = element.innerHTML;
+        var html = element.innerHTML;
         html = html.replace(/(?![^<]*>) und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
         html = html.replace(/Schülerin/g, 'Gnomin');
         html = html.replace(/Schüler/g, 'Gnome');
@@ -72,9 +72,9 @@ function replaceHTML(element, hours) {
 }
 
 function specializeElement(element, hours) {
-    const hash = elementToHash(element);
-    const factor = (hours - 12) / 2;
-    const fontNumber = rand(hash, 400, 5);
+    var hash = elementToHash(element);
+    var factor = (hours - 12) / 2;
+    var fontNumber = rand(hash, 400, 5);
     if (fontNumber < factor) {
         element.style.fontFamily = "'Bonbon', cursive";
     } else if (fontNumber < 6 + factor) {
@@ -105,13 +105,13 @@ function specializeElement(element, hours) {
 }
 
 function animateImage(element) {
-        const avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
-        const quer = avatar < 10 ? avatar : avatar % 9;
-        let animate = true;
-        let pos = 0;
-        let x = 0;
-        let y = 0;
-        let z = 0;
+        var avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
+        var quer = avatar < 10 ? avatar : avatar % 9;
+        var animate = true;
+        var pos = 0;
+        var x = 0;
+        var y = 0;
+        var z = 0;
 
         switch(quer){
             case 0:
@@ -145,7 +145,7 @@ function animateImage(element) {
             default:
                 animate = false;
         }
-        let id = animate ? setInterval(function () {
+        var id = animate ? setInterval(function () {
             if (pos == 359) {
                 pos = 0;
             } else {
@@ -156,7 +156,7 @@ function animateImage(element) {
 }
 
 function locationtrigger() {
-  let input = document.querySelector('textarea');
+  var input = document.querySelector('textarea');
   return input === null;
 }
 
@@ -168,8 +168,8 @@ document.querySelectorAll('a[href^="profile.php"], a[href^="profile.php"] font')
     colorizeElement(element)
 });
 
-let date = new Date();
-let hours = date.getHours();
+var date = new Date();
+var hours = date.getHours();
 
 if (hours >= 12 && locationtrigger()) {
     document.querySelectorAll('td[class="normalfont"][align="left"]').forEach(function (post) {
