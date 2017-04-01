@@ -36,6 +36,7 @@ function replaceHTML(element, hours) {
     if (hours >= 16) {
         var html = element.innerHTML;
         html = html.replace(/(?![^<]*>) und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
+        html = html.replace(/ und <span [^>]*>ein Einhorn<\/span> und ein Einhorn und <span [^>]*>ein Einhorn<\/span> und /g, ' und <span style="color: #ee44ff; font-family: Bonbon, cursive; font-size: 1.4em;">ein Einhorn</span> und ');
         html = html.replace(/Schülerin/g, 'Gnomin');
         html = html.replace(/Schüler/g, 'Gnome');
         html = html.replace(/schülerin/g, 'gnomin');
