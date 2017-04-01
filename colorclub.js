@@ -106,7 +106,7 @@ function specializeElement(element, hours) {
 }
 
 function animateImage(element) {
-        var avatar = element.src.match(/avatar-(\d+)\.(jpg|gif|png)/)[1];
+        var avatar = element.src.match(/avatar-(\d+)\.(.{3,4})/)[1];
         var quer = avatar < 10 ? avatar : avatar % 9;
         var animate = true;
         var pos = 0;
